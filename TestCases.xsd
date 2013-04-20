@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://docs.oasis-open.org/odata/ns/testcases" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:tc="http://docs.oasis-open.org/odata/ns/testcases"
+>
+  <xs:element name="TestSuite">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="DisableTrace">
+          <xs:complexType>
+            <xs:attribute name="Rule" type="xs:string" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Constraint">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" name="Match" type="xs:string" />
+              </xs:sequence>
+              <xs:attribute name="Rule" type="xs:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element maxOccurs="unbounded" name="TestCase">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Input" minOccurs="1" maxOccurs="1" type="xs:string" />
+              </xs:sequence>
+              <xs:attribute name="Name" type="xs:string" use="required" />
+              <xs:attribute name="Rule" type="xs:string" use="required" />
+              <xs:attribute name="Trace" type="xs:boolean" default="true" />
+              <xs:attribute name="FailAt" type="xs:unsignedInt" use="optional" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="MaxUncoveredRules" type="xs:unsignedInt" use="optional" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

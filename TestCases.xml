@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestSuite MaxUncoveredRules="25" xmlns="http://docs.oasis-open.org/odata/ns/testcases">
+  <TestCase Name="Succeed" 
+            Rule="GUID">
+    <Input>guid'01234567-89ab-cdef-0123-456789abcdef'</Input>
+  </TestCase>
+  <TestCase Name="Succeed with FailAt" 
+            Rule="GUID"
+            FailAt="10">
+    <Input>guid'01234g67-89ab-cdef-0123-456789abcdef'</Input>
+  </TestCase>
+  <TestCase Name="Fail to Fail" 
+            Rule="odataUri"
+            FailAt="4">
+    <Input>http://www.odata.org/</Input>
+  </TestCase>
+  <TestCase Name="Fail without FailAt" 
+            Rule="GUID">
+    <Input>guid'01234567-89ab-cdef-456789abcdef'</Input>
+  </TestCase>
+  <TestCase Name="Fail with wrong FailAt" 
+            Rule="GUID"
+            FailAt="11">
+    <Input>zuid'01234567-89ab-cdef-0123-456789abcdef'</Input>
+  </TestCase>
+  <TestCase Name="FailAt out of range" 
+            Rule="GUID"
+            FailAt="107">
+    <Input>guid'01234567-89ab-xdef-0123-456789abcdef'</Input>
+  </TestCase>
+  <!-- parser needs help for distinguishing between entityColNavigationProperty
+       and entityNavigationProperty, so it can pick the right branch and
+       reach keyPredicate -->
+  <Constraint Rule="entityNavigationProperty">
+     <Match>Supplier</Match>
+  </Constraint>
+  <Constraint Rule="complexColProperty"/>
+  <Constraint Rule="complexProperty"/>
+  <Constraint Rule="primitiveColProperty"/>
+  <Constraint Rule="primitiveProperty"/>
+  <Constraint Rule="streamProperty"/>
+  <TestCase Name="Rule callback" 
+            Rule="odataRelativeUri">
+    <Input>Categories(1)/Products(1)</Input>
+  </TestCase>
+</TestSuite>
