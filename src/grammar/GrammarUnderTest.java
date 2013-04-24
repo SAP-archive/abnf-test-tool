@@ -800,7 +800,7 @@ public class GrammarUnderTest extends Grammar{
     }
 
     private static Rule[] getRules(){
-    	Rule[] rules = new Rule[368];
+     Rule[] rules = new Rule[368];
         for(RuleNames r : RuleNames.values()){
             rules[r.ruleID()] = getRule(r.ruleID(), r.ruleName(), r.opcodeOffset(), r.opcodeCount());
         }
@@ -808,13 +808,13 @@ public class GrammarUnderTest extends Grammar{
     }
 
     private static Udt[] getUdts(){
-    	Udt[] udts = new Udt[0];
+     Udt[] udts = new Udt[0];
         return udts;
     }
 
         // opcodes
     private static Opcode[] getOpcodes(){
-    	Opcode[] op = new Opcode[2667];
+     Opcode[] op = new Opcode[2667];
         {int[] a = {1,4,5,6,10,11,19}; op[0] = getOpcodeCat(a);}
         {int[] a = {2,3}; op[1] = getOpcodeAlt(a);}
         {char[] a = {104,116,116,112,115}; op[2] = getOpcodeTls(a);}
@@ -3506,7 +3506,7 @@ public class GrammarUnderTest extends Grammar{
         out.println(";   - Ralf Handl (ralf.handl@sap.com), SAP AG");
         out.println(";   - Michael Pizzo (mikep@microsoft.com), Microsoft");
         out.println(";");
-        out.println("; Additional artifacts:");
+        out.println("; Additional artifacts: ");
         out.println(";   This prose specification is one component of a Work Product which consists");
         out.println(";   of:");
         out.println(";   - OData Core Part 1: Protocol");
