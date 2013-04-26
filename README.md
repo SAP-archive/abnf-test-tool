@@ -2,20 +2,20 @@
 
 The ABNF Test Tool uses Java APG 1.0 from [http://www.coasttocoastresearch.com/apg/docs/docjava](http://www.coasttocoastresearch.com/apg/docs/docjava).
 
-The project contains two linked files:
+Actually, it uses an extended version provided by Ken Baclawski at [http://www.ccs.neu.edu/home/kenb/eapg.jar](http://www.ccs.neu.edu/home/kenb/eapg.jar). This version allows case-sensitive literals surrounded by single quotes.
+
+The project contains three linked files:
 
 - `abnf.txt`
 - `abnf-testcases.xml`
+- `eapg.jar`
 
-Point the linked files to your ABNF and your test cases.
+Point the linked files to your ABNF, your test cases, and a downloaded copy of Java APG, then you are ready to go.
 
 The project uses a custom build step to generate the java class
 `src/grammar/GrammarUnderTest.java` from the linked file `abnf.txt` using Java APG. 
 
-The default run configuration `Check` executes all test cases in the linked file `abnf-testcases.xml`.
-
-The second run configuration `CheckTest` executes the JUnit self-test of CheckABNF. 
-It uses the included test case file `TestCases.xml` 
+The included run configuration `Check` executes all test cases in the linked file `abnf-testcases.xml`.
 
 The schema for the test case XML files is `TestCases.xsd`. Add it to
 
@@ -69,7 +69,6 @@ In addition to test cases the XML file may contain any number of constraints:
      ...
    </TestSuite>`
    
-This helps the parser to disambiguate between rules that accept the same charactersequences; in this example between navigation properties with cardinality 1 and *.
+This helps the parser to disambiguate between rules that accept the same character sequences, in this example between navigation properties with cardinality 1 and *.
 
-If the parser successfully matches an entityNavigationProperty, it will trigger a
-callback that will check whether the matched character sequence is identical to one of the given `<Match>`es. If not, the parser will continue with the next alternative.
+If the parser successfully matches an `entityNavigationProperty`, it will trigger a callback that will check whether the matched character sequence is identical to one of the given `<Match>`es. If not, the parser will continue with the next alternative.
