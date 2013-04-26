@@ -3511,7 +3511,7 @@ public class GrammarUnderTest extends Grammar{
         out.println(";   of:");
         out.println(";   - OData Core Part 1: Protocol");
         out.println(";   - OData Core Part 2: URL Conventions");
-        out.println(";   - OData Core Part 3: Common Schema Definition Language");
+        out.println(";   - OData Core Part 3: Common Schema Defi  nition Language");
         out.println(";   - OData ABNF Construction Rules (this document)");
         out.println(";");
         out.println("; Related work:");
