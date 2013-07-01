@@ -53,7 +53,7 @@ public class CheckTest {
 		assertEquals(
 				"out",
 				"All 1 test cases passed",
-				outLine(-1).substring(1, 24));
+				outLine(-1).substring(0, 23));
 		assertEquals("err", "", errArray.toString());
 	}
 
@@ -63,7 +63,7 @@ public class CheckTest {
 		assertEquals(
 				"out",
 				"All 1 test cases passed",
-				outLine(-1).substring(1, 24));
+				outLine(-1).substring(0, 23));
 		assertEquals("err", "", errArray.toString());
 	}
 
@@ -73,7 +73,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: Fail without FailAt fails at 28: guid'01234567-89ab-cdef-4567[89abcdef'] is no GUID\n\n",
+				"ERROR: Fail without FailAt fails at 28: guid'01234567-89ab-cdef-4567[89abcdef'] is no GUID\n",
 				errLine(-2));
 	}
 
@@ -83,7 +83,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: Fail to Fail succeeds instead of failing at 4: http://www.odata.org/ is odataUri\n\n",
+				"ERROR: Fail to Fail succeeds instead of failing at 4: http://www.odata.org/ is odataUri\n",
 				errLine(-2));
 	}
 
@@ -93,7 +93,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: Fail with wrong FailAt fails at 0 instead of 11: [zuid'01234567-89ab-cdef-0123-456789abcdef'] is no GUID\n\n",
+				"ERROR: Fail with wrong FailAt fails at 0 instead of 11: [zuid'01234567-89ab-cdef-0123-456789abcdef'] is no GUID\n",
 				errLine(-2));
 	}
 
@@ -103,7 +103,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: FailAt out of range fails at 19 instead of 107: guid'01234567-89ab-[xdef-0123-456789abcdef'] is no GUID\n\n",
+				"ERROR: FailAt out of range fails at 19 instead of 107: guid'01234567-89ab-[xdef-0123-456789abcdef'] is no GUID\n",
 				errLine(-2));
 	}
 
@@ -114,7 +114,7 @@ public class CheckTest {
 		assertEquals(
 				"out",
 				"All 1 test cases passed",
-				outLine(-1).substring(1, 24));
+				outLine(-1).substring(0, 23));
 	}
 
 	private String outLine(int line) throws Exception {

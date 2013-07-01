@@ -18,9 +18,18 @@ import com.coasttocoastresearch.apg.Statistics;
 import com.coasttocoastresearch.apg.Trace;
 
 public class Check {
+	
+	public Check() throws Exception {
+		gp = new GrammarProxy("grammar.GrammarUnderTest");
+		p = new Parser(gp.Grammar());
+		s = p.enableStatistics(true);
+		s.enableCumulate(true);
+	}
 
 	private PrintStream trace;
 	private GrammarProxy gp;
+	private Parser p;
+	private Statistics s;
 
 	private class InvalidRuleName extends IllegalArgumentException {
 
@@ -77,7 +86,6 @@ public class Check {
 			Method ruleID = rn.getMethod("ruleID");
 			Object[] rns = rn.getEnumConstants();
 			for (Object rn1 : rns) {
-				// TODO: clean up
 				String rnm = (String) ruleName.invoke(rn1);
 				Integer rid = (Integer) ruleID.invoke(rn1);
 				ruleIDs.put(rnm.toLowerCase(), rid);
@@ -108,32 +116,34 @@ public class Check {
 	 * 
 	 * @param args
 	 *            list of XML file names containing test cases
+	 * @throws Exception
 	 */
 	public static void main(String[] args) {
-		// Will run all test cases in the provided files
-		// TODO: collect statistics in Check, across test suites
-		Check c = new Check();
+		// Run all test cases in the provided files
+
+		Check c;
+		try {
+			c = new Check();
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+			return;
+		}
+
+		int maxUncoveredRules = 0;
 		for (String filename : args) {
-			System.out.println("Running test cases from " + filename + "\n");
+			System.out.println("Running test cases from " + filename);
 			TestSuite ts = TestSuite.read(filename);
 			c.run(ts, System.out, System.err);
+			maxUncoveredRules = ts.MaxUncoveredRules();
 		}
+
+		c.printStatistics(maxUncoveredRules, System.out, System.err);
 	}
 
 	public void run(TestSuite ts, PrintStream out, PrintStream err) {
 		int failures = 0;
-		// TODO: extract to constructor/init method
-		try {
-			gp = new GrammarProxy("grammar.GrammarUnderTest");
-		} catch (Exception e) {
-			e.printStackTrace(err);
-			return;
-		}
-		Parser p = new Parser(gp.Grammar());
-		Statistics s = p.enableStatistics(true);
-		s.enableCumulate(true);
-		// TODO: extract up to here
 
+		// TODO: clear rule callbacks in p
 		try {
 			for (Map.Entry<String, HashSet<String>> c : ts.Constraints()
 					.entrySet())
@@ -165,8 +175,8 @@ public class Check {
 					out.flush();
 
 					// parse again with trace enabled
-					parse(p, ts, true, err);					
-					
+					parse(p, ts, true, err);
+
 					err.print("ERROR: " + tc.Name());
 
 					if (r.success())
@@ -182,27 +192,21 @@ public class Check {
 								+ " is no ");
 					}
 
-					err.println(tc.Rule() + "\n\n");
+					err.println(tc.Rule() + "\n");
 
 				}
 			} catch (InvalidRuleName e) {
 				failures++;
-				err.println("\nERROR: " + tc.Name() + ": " + e.getMessage()
-						+ "\n");
+				err.println("\nERROR: " + tc.Name() + ": " + e.getMessage());
 			} catch (Exception e) {
 				failures++;
 				err.println("\nERROR: " + tc.Name() + ": " + tc.Input() + ": "
-						+ e.getMessage() + "\n");
+						+ e.getMessage());
 				e.printStackTrace(err);
 			}
 		}
 		if (failures == 0) {
-			// TODO: extract rule coverage to separate method 
-			int coveredRules = coveredRules(s, ts, out, err);
-			int coverage = (100 * coveredRules) / gp.ruleCount();
-			out.println("\nAll " + ts.TestCases().size()
-					+ " test cases passed, " + coveredRules + " of "
-					+ gp.ruleCount() + " rules covered (" + coverage + "%)");
+			out.println("All " + ts.TestCases().size() + " test cases passed\n");
 		} else {
 			err.println(failures + " of " + ts.TestCases().size()
 					+ " test cases failed\n");
@@ -215,6 +219,7 @@ public class Check {
 		if (doTrace) {
 			trace = ps;
 			t.setOut(trace);
+			trace.println();
 			// TODO: add recursive disabling to Java APG?
 			for (String rule : ts.DisableTrace()) {
 				t.enableRule(false, gp.ruleID(rule));
@@ -235,8 +240,16 @@ public class Check {
 		return input.substring(0, pos) + "[" + input.substring(pos) + "]";
 	}
 
-	private int coveredRules(Statistics s, TestSuite ts, PrintStream out,
+	public void printStatistics(int maxUncoveredRules, PrintStream out,
 			PrintStream err) {
+		int coveredRules = coveredRules(s, maxUncoveredRules, out, err);
+		int coverage = (100 * coveredRules) / gp.ruleCount();
+		out.println(coveredRules + " of " + gp.ruleCount() + " rules covered ("
+				+ coverage + "%)");
+	}
+
+	private int coveredRules(Statistics s, int maxUncoveredRules,
+			PrintStream out, PrintStream err) {
 		int unMatchedRules = 0;
 		HashSet<String> matchedRuleNames = new HashSet<String>();
 
@@ -259,9 +272,9 @@ public class Check {
 				unMatchedRules = 0;
 				for (String r : gp.ruleNames) {
 					if (!matchedRuleNames.contains(r)) {
-						if (unMatchedRules < ts.MaxUncoveredRules())
+						if (unMatchedRules < maxUncoveredRules)
 							out.println("  " + r);
-						else if (unMatchedRules == ts.MaxUncoveredRules())
+						else if (unMatchedRules == maxUncoveredRules)
 							out.println("  ...");
 						unMatchedRules++;
 					}

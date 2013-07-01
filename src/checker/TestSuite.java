@@ -20,7 +20,7 @@ public class TestSuite {
 	private List<TestCase> testCases;
 	private Map<String, HashSet<String>> constraints;
 	private HashSet<String> disableTrace;
-	private int maxUncoveredRules = 0;
+	private int maxUncoveredRules = 50;
 
 	private TestSuite() {
 		testCases = new ArrayList<TestCase>();

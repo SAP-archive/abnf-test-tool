@@ -1217,17 +1217,17 @@ public class GrammarUnderTest extends Grammar{
         op[313] = getOpcodeRnm(376, 2630); // IRI-in-query
         {int[] a = {315,316,317,318,319,320,321,322,323,324,325,326}; op[314] = getOpcodeAlt(a);}
         op[315] = getOpcodeRnm(46, 327); // expand
-        op[316] = getOpcodeRnm(53, 420); // filter
-        op[317] = getOpcodeRnm(58, 450); // format
-        op[318] = getOpcodeRnm(44, 310); // id
-        op[319] = getOpcodeRnm(59, 463); // inlinecount
-        op[320] = getOpcodeRnm(54, 424); // orderby
-        op[321] = getOpcodeRnm(60, 467); // search
-        op[322] = getOpcodeRnm(67, 512); // select
-        op[323] = getOpcodeRnm(56, 440); // skip
-        op[324] = getOpcodeRnm(75, 573); // skiptoken
-        op[325] = getOpcodeRnm(57, 445); // top
-        op[326] = getOpcodeRnm(385, 2650); // apply
+        op[316] = getOpcodeRnm(385, 2650); // apply
+        op[317] = getOpcodeRnm(53, 420); // filter
+        op[318] = getOpcodeRnm(58, 450); // format
+        op[319] = getOpcodeRnm(44, 310); // id
+        op[320] = getOpcodeRnm(59, 463); // inlinecount
+        op[321] = getOpcodeRnm(54, 424); // orderby
+        op[322] = getOpcodeRnm(60, 467); // search
+        op[323] = getOpcodeRnm(67, 512); // select
+        op[324] = getOpcodeRnm(56, 440); // skip
+        op[325] = getOpcodeRnm(75, 573); // skiptoken
+        op[326] = getOpcodeRnm(57, 445); // top
         {int[] a = {328,329,330,331}; op[327] = getOpcodeCat(a);}
         {char[] a = {36,101,120,112,97,110,100}; op[328] = getOpcodeTbs(a);}
         op[329] = getOpcodeRnm(333, 2226); // EQ
@@ -4048,6 +4048,7 @@ public class GrammarUnderTest extends Grammar{
         out.println("id = '$id' EQ IRI-in-query       ");
         out.println("");
         out.println("systemQueryOption = expand ");
+        out.println("                  / apply");
         out.println("                  / filter ");
         out.println("                  / format ");
         out.println("                  / id");
@@ -4058,7 +4059,6 @@ public class GrammarUnderTest extends Grammar{
         out.println("                  / skip ");
         out.println("                  / skiptoken");
         out.println("                  / top ");
-        out.println("                  / apply");
         out.println("");
         out.println("expand            = '$expand' EQ expandItem *( COMMA expandItem )");
         out.println("expandItem        = STAR [ ref / OPEN levels CLOSE ]");
