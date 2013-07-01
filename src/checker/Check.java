@@ -18,7 +18,7 @@ import com.coasttocoastresearch.apg.Statistics;
 import com.coasttocoastresearch.apg.Trace;
 
 public class Check {
-	
+
 	public Check() throws Exception {
 		gp = new GrammarProxy("grammar.GrammarUnderTest");
 		p = new Parser(gp.Grammar());
@@ -116,7 +116,6 @@ public class Check {
 	 * 
 	 * @param args
 	 *            list of XML file names containing test cases
-	 * @throws Exception
 	 */
 	public static void main(String[] args) {
 		// Run all test cases in the provided files
