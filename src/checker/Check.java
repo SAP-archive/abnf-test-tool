@@ -111,16 +111,18 @@ public class Check {
 	 */
 	public static void main(String[] args) {
 		// Will run all test cases in the provided files
+		// TODO: collect statistics in Check, across test suites
+		Check c = new Check();
 		for (String filename : args) {
 			System.out.println("Running test cases from " + filename + "\n");
 			TestSuite ts = TestSuite.read(filename);
-			Check c = new Check();
 			c.run(ts, System.out, System.err);
 		}
 	}
 
 	public void run(TestSuite ts, PrintStream out, PrintStream err) {
 		int failures = 0;
+		// TODO: extract to constructor/init method
 		try {
 			gp = new GrammarProxy("grammar.GrammarUnderTest");
 		} catch (Exception e) {
@@ -130,6 +132,7 @@ public class Check {
 		Parser p = new Parser(gp.Grammar());
 		Statistics s = p.enableStatistics(true);
 		s.enableCumulate(true);
+		// TODO: extract up to here
 
 		try {
 			for (Map.Entry<String, HashSet<String>> c : ts.Constraints()
@@ -194,6 +197,7 @@ public class Check {
 			}
 		}
 		if (failures == 0) {
+			// TODO: extract rule coverage to separate method 
 			int coveredRules = coveredRules(s, ts, out, err);
 			int coverage = (100 * coveredRules) / gp.ruleCount();
 			out.println("\nAll " + ts.TestCases().size()
