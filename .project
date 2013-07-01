@@ -35,19 +35,29 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>abnf-extension-testcases.xml</name>
+			<type>1</type>
+			<location>C:/ABNF-Test/ABNF/odata-aggregation-testcases.xml</location>
+		</link>
+		<link>
+			<name>abnf-extension.txt</name>
+			<type>1</type>
+			<location>C:/ABNF-Test/ABNF/odata-aggregation-abnf.txt</location>
+		</link>
+		<link>
 			<name>abnf-testcases.xml</name>
 			<type>1</type>
-			<location>C:/Anywhere/ABNF/odata-abnf-testcases.xml</location>
+			<location>C:/ABNF-Test/ABNF/odata-abnf-testcases.xml</location>
 		</link>
 		<link>
 			<name>abnf.txt</name>
 			<type>1</type>
-			<location>C:/Anywhere/ABNF/odata-abnf-construction-rules-v4.0-wd01.txt</location>
+			<location>C:/ABNF-Test/ABNF/odata-abnf-construction-rules-combined.txt</location>
 		</link>
 		<link>
 			<name>eapg.jar</name>
 			<type>1</type>
-			<location>C:/Anywhere/eapg.jar</location>
+			<location>C:/ABNF-Test/eapg.jar</location>
 		</link>
 	</linkedResources>
 </projectDescription>
