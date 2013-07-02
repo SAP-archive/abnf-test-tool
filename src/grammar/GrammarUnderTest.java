@@ -886,7 +886,7 @@ public class GrammarUnderTest extends Grammar{
     }
 
     private static Rule[] getRules(){
-     Rule[] rules = new Rule[411];
+    	Rule[] rules = new Rule[411];
         for(RuleNames r : RuleNames.values()){
             rules[r.ruleID()] = getRule(r.ruleID(), r.ruleName(), r.opcodeOffset(), r.opcodeCount());
         }
@@ -894,13 +894,13 @@ public class GrammarUnderTest extends Grammar{
     }
 
     private static Udt[] getUdts(){
-     Udt[] udts = new Udt[0];
+    	Udt[] udts = new Udt[0];
         return udts;
     }
 
         // opcodes
     private static Opcode[] getOpcodes(){
-     Opcode[] op = new Opcode[2908];
+    	Opcode[] op = new Opcode[2908];
         {int[] a = {1,2}; op[0] = getOpcodeAlt(a);}
         op[1] = getOpcodeRnm(1, 3); // odataUri
         op[2] = getOpcodeRnm(307, 2093); // header
@@ -4058,7 +4058,6 @@ public class GrammarUnderTest extends Grammar{
         out.println("                  / skip ");
         out.println("                  / skiptoken");
         out.println("                  / top ");
-        out.println("                  / apply");
         out.println("");
         out.println("expand            = '$expand' EQ expandItem *( COMMA expandItem )");
         out.println("expandItem        = STAR [ ref / OPEN levels CLOSE ]");
@@ -5029,8 +5028,7 @@ public class GrammarUnderTest extends Grammar{
         out.println(";------------------------------------------------------------------------------");
         out.println("");
         out.println("");
-        out.println("; TODO: make this possible in Java APG");
-        out.println(";systemQueryOption =/ apply");
+        out.println("systemQueryOption =/ apply    ; new alternative for systemQueryOption core rule");
         out.println("");
         out.println("");
         out.println("apply      = '$apply' EQ applyExpr");

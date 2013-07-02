@@ -55,9 +55,9 @@
 			<location>C:/ABNF-Test/ABNF/odata-abnf-construction-rules-combined.txt</location>
 		</link>
 		<link>
-			<name>eapg.jar</name>
+			<name>apg.jar</name>
 			<type>1</type>
-			<location>C:/ABNF-Test/eapg.jar</location>
+			<location>C:/ABNF-Test/xapg.jar</location>
 		</link>
 	</linkedResources>
 </projectDescription>
