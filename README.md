@@ -17,6 +17,14 @@ The project uses a custom build step to generate the java class
 
 The included run configuration `Check` executes all test cases in the linked file `abnf-testcases.xml`.
 
+If you want to split your testcases into two files, point the linked file
+
+- `abnf-extension-testcases.xml`
+
+to your second testcase file and use the run configuration `Check2`. The rule coverage will be calculated using both testcase files. 
+
+If you want to split your testcases further, it should be easy to extrapolate from here.
+
 The schema for the test case XML files is `TestCases.xsd`. Add it to
 
 - Window -> Preferences -> XML -> XML Catalog -> User Specified Entries
