@@ -5038,7 +5038,7 @@ public class GrammarUnderTest extends Grammar{
         out.println("           / bottompercentTrafo");
         out.println("           / bottomsumTrafo");
         out.println("           / concatTrafo");
-        out.println("           / expandTrafo");
+        out.println("           / expandTrafo ");
         out.println("           / filterTrafo");
         out.println("           / groupbyTrafo");
         out.println("           / identityTrafo");

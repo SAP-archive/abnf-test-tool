@@ -143,6 +143,8 @@ public class Check {
 		int failures = 0;
 
 		// TODO: clear rule callbacks in p
+		for (int r=0; r<gp.ruleCount(); r++)
+			p.setRuleCallback(r, null);
 		try {
 			for (Map.Entry<String, HashSet<String>> c : ts.Constraints()
 					.entrySet())
