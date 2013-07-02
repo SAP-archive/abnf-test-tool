@@ -2,13 +2,13 @@
 
 The ABNF Test Tool uses Java APG 1.0 from [http://www.coasttocoastresearch.com/apg/docs/docjava](http://www.coasttocoastresearch.com/apg/docs/docjava).
 
-Actually, it uses an extended version provided by Ken Baclawski at [http://www.ccs.neu.edu/home/kenb/eapg.jar](http://www.ccs.neu.edu/home/kenb/eapg.jar). This version allows case-sensitive literals surrounded by single quotes.
+Alternatively it can use the extended version provided by Ken Baclawski at [http://www.ccs.neu.edu/home/kenb/eapg.jar](http://www.ccs.neu.edu/home/kenb/eapg.jar). This version allows case-sensitive literals surrounded by single quotes.
 
 The project contains three linked files:
 
 - `abnf.txt`
 - `abnf-testcases.xml`
-- `eapg.jar`
+- `apg.jar`
 
 Point the linked files to your ABNF, your test cases, and a downloaded copy of Java APG, then you are ready to go.
 
