@@ -35,8 +35,11 @@ public class Check {
 
 		private static final long serialVersionUID = 1L;
 
+		public String ruleName;
+
 		public InvalidRuleName(String ruleName) {
 			super(ruleName);
+			this.ruleName = ruleName;
 		}
 	}
 
@@ -105,7 +108,7 @@ public class Check {
 			try {
 				return ruleIDs.get(ruleName.toLowerCase());
 			} catch (NullPointerException e) {
-				throw new Check.InvalidRuleName("unknown rule " + ruleName);
+				throw new Check.InvalidRuleName(ruleName);
 			}
 		}
 
@@ -142,17 +145,12 @@ public class Check {
 	public void run(TestSuite ts, PrintStream out, PrintStream err) {
 		int failures = 0;
 
-		// TODO: clear rule callbacks in p
-		for (int r=0; r<gp.ruleCount(); r++)
-			p.setRuleCallback(r, null);
-		try {
-			for (Map.Entry<String, HashSet<String>> c : ts.Constraints()
-					.entrySet())
+		for (Map.Entry<String, HashSet<String>> c : ts.Constraints().entrySet())
+		 	try { 
 				new ModelElementCheck(p, c.getKey(), c.getValue());
-		} catch (InvalidRuleName e) {
-			e.printStackTrace(err);
-			return;
-		}
+  			} catch (InvalidRuleName e) {
+				out.println("WARNING: Constraint for unknown rule " + e.ruleName);
+			}
 
 		for (TestCase tc : ts.TestCases()) {
 			try {
