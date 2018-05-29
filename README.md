@@ -79,19 +79,21 @@ Testcases fail otherwise. In that case a parser trace is included in the console
 
 In addition to testcases the XML file may contain any number of constraints:
 
-    <TestSuite xmlns="http://docs.oasis-open.org/odata/ns/testcases">
-      ...
-      <Constraint Rule="entityNavigationProperty">
+```xml
+<TestSuite xmlns="http://docs.oasis-open.org/odata/ns/testcases">
+    ...
+    <Constraint Rule="entityNavigationProperty">
         <Match>Category</Match>
         <Match>Product</Match>
         <Match>Supplier</Match>
-      </Constraint>
-      <Constraint Rule="entityColNavigationProperty">
+    </Constraint>
+    <Constraint Rule="entityColNavigationProperty">
         <Match>Items</Match>
         <Match>Products</Match>
-      </Constraint>
-      ...
-    </TestSuite>
+    </Constraint>
+    ...
+</TestSuite>
+```
    
 This helps the parser to disambiguate between rules that accept the same character sequences, in this example between navigation properties with multiplicity 1 and *.
 
