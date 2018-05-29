@@ -10,12 +10,12 @@ import java.util.Set;
 
 import checker.TestSuite.TestCase;
 
-import com.coasttocoastresearch.apg.Grammar;
-import com.coasttocoastresearch.apg.Parser;
-import com.coasttocoastresearch.apg.Parser.Result;
-import com.coasttocoastresearch.apg.Parser.RuleCallback;
-import com.coasttocoastresearch.apg.Statistics;
-import com.coasttocoastresearch.apg.Trace;
+import apg.Grammar;
+import apg.Parser;
+import apg.Parser.Result;
+import apg.Parser.RuleCallback;
+import apg.Statistics;
+import apg.Trace;
 
 public class Check {
 

@@ -37,27 +37,27 @@
 		<link>
 			<name>abnf-extension-testcases.xml</name>
 			<type>1</type>
-			<location>C:/ABNF-Test/ABNF/odata-aggregation-testcases.xml</location>
+			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-aggregation-testcases.xml</locationURI>
 		</link>
 		<link>
 			<name>abnf-extension.txt</name>
 			<type>1</type>
-			<location>C:/ABNF-Test/ABNF/odata-aggregation-abnf.txt</location>
+			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-aggregation-abnf.txt</locationURI>
 		</link>
 		<link>
 			<name>abnf-testcases.xml</name>
 			<type>1</type>
-			<location>C:/ABNF-Test/ABNF/odata-abnf-testcases.xml</location>
+			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-abnf-testcases.xml</locationURI>
 		</link>
 		<link>
 			<name>abnf.txt</name>
 			<type>1</type>
-			<location>C:/ABNF-Test/ABNF/odata-abnf-construction-rules-combined.txt</location>
+			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-abnf-construction-rules.txt</locationURI>
 		</link>
 		<link>
 			<name>apg.jar</name>
 			<type>1</type>
-			<location>C:/ABNF-Test/xapg.jar</location>
+			<locationURI>PARENT-1-PROJECT_LOC/apg-java/build/apg.jar</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -73,7 +73,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: Fail without FailAt fails at 28: guid'01234567-89ab-cdef-4567[89abcdef'] is no GUID\n",
+				"ERROR: Fail without FailAt fails at 23: 01234567-89ab-cdef-4567[89abcdef] is no guidValue\n",
 				errLine(-2));
 	}
 
@@ -93,7 +93,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: Fail with wrong FailAt fails at 0 instead of 11: [zuid'01234567-89ab-cdef-0123-456789abcdef'] is no GUID\n",
+				"ERROR: Fail with wrong FailAt fails at 14 instead of 11: 01234567-89ab-[xdef-0123-456789abcdef] is no guidValue\n",
 				errLine(-2));
 	}
 
@@ -103,7 +103,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: FailAt out of range fails at 19 instead of 107: guid'01234567-89ab-[xdef-0123-456789abcdef'] is no GUID\n",
+				"ERROR: FailAt out of range fails at 14 instead of 107: 01234567-89ab-[xdef-0123-456789abcdef] is no guidValue\n",
 				errLine(-2));
 	}
 
@@ -115,6 +115,16 @@ public class CheckTest {
 				"out",
 				"All 1 test cases passed",
 				outLine(-1).substring(0, 23));
+	}
+
+	@Test
+	public void testRuleCallbackWithoutMatch() throws Exception {
+		c.run(ts.clone("Rule callback without match"), out, err);
+		assertEquals("out", "", outArray.toString());
+		assertEquals(
+				"err",
+				"ERROR: Rule callback without match fails at 8: Products[(1)] is no odataRelativeUri\n",
+				errLine(-2));
 	}
 
 	private String outLine(int line) throws Exception {
