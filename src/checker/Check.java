@@ -43,6 +43,11 @@ public class Check {
 		}
 	}
 
+	private void clearAllModelElementChecks(Parser p, GrammarProxy gp) {
+		for (int i = 0; i < gp.ruleCount(); i++)
+			p.setRuleCallback(i, null);
+	}
+
 	private class ModelElementCheck extends RuleCallback {
 
 		private String ruleName;
@@ -145,11 +150,13 @@ public class Check {
 	public void run(TestSuite ts, PrintStream out, PrintStream err) {
 		int failures = 0;
 
+		clearAllModelElementChecks(p, gp);
 		for (Map.Entry<String, HashSet<String>> c : ts.Constraints().entrySet())
-		 	try { 
+			try {
 				new ModelElementCheck(p, c.getKey(), c.getValue());
   			} catch (InvalidRuleName e) {
-				out.println("WARNING: Constraint for unknown rule " + e.ruleName);
+				out.println("WARNING: Constraint for unknown rule "
+						+ e.ruleName);
 			}
 
 		for (TestCase tc : ts.TestCases()) {
