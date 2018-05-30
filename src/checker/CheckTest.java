@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class CheckTest {
-	private static final String TEST_CASES_XML = "TestCases.xml";
+	private static final String TEST_CASES_XML = "examples/UnitTestCases.xml";
 	private static TestSuite ts;
 	private Check c;
 	private PrintStream out;
