@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Example Testcases - resourcePath
+
+  30 May 2018
+
+-->
+<TestSuite MaxUncoveredRules="10" xmlns="http://docs.oasis-open.org/odata/ns/testcases">
+  <DisableTrace Rule="identifier" />
+  <DisableTrace Rule="identifierLeadingCharacter" />
+  <DisableTrace Rule="identifierCharacter" />
+  <DisableTrace Rule="ALPHA" />
+  <DisableTrace Rule="DIGIT" />
+
+  <Constraint Rule="entitySet">
+    <Match>Categories</Match>
+    <Match>Products</Match>
+  </Constraint>
+  <Constraint Rule="collectionProperty">
+    <Match>Addresses</Match>
+  </Constraint>
+
+  <TestCase Name="Date in URL or body" Rule="dateValue">
+    <Input>2012-09-03</Input>
+  </TestCase>
+  <TestCase Name="Date" Rule="dateValue">
+    <Input>2012-09-10</Input>
+  </TestCase>
+  <TestCase Name="Date" Rule="dateValue">
+    <Input>2012-09-20</Input>
+  </TestCase>
+  <TestCase Name="Date" Rule="dateValue">
+    <Input>2012-09-03</Input>
+  </TestCase>
+  <TestCase Name="Date: year zero" Rule="dateValue">
+    <Input>0000-01-01</Input>
+  </TestCase>
+  <TestCase Name="Date: negative" Rule="dateValue">
+    <Input>-10000-04-01</Input>
+  </TestCase>
+  <TestCase Name="Date: negative Infinity" Rule="dateValue" FailAt="1">
+    <Input>-INF</Input>
+  </TestCase>
+  <TestCase Name="Date: positive Infinity" Rule="dateValue" FailAt="0">
+    <Input>INF</Input>
+  </TestCase>
+  <TestCase Name="Resource Path - Entity Set" Rule="relativeUrl">
+    <Input>Categories</Input>
+  </TestCase>
+  <TestCase Name="Resource Path - Entity" Rule="resourcePath">
+    <Input>Categories(11)</Input>
+  </TestCase>
+  <TestCase Name="Resource Path - Entity" Rule="resourcePath">
+    <Input>Categories(ID=1)</Input>
+  </TestCase>
+  <TestCase Name="Resource Path - Entity" Rule="resourcePath">
+    <Input>Categories(ID=1,Size=5)</Input>
+  </TestCase>
+  <TestCase Name="Correct Guid" Rule="guidValue">
+    <Input>01234567-89ab-cdef-0123-456789abcdef</Input>
+  </TestCase>
+  <TestCase Name="Guid with wrong character" Rule="guidValue" FailAt="5">
+    <Input>01234g67-89ab-cdef-0123-456789abcdef</Input>
+  </TestCase>
+  <TestCase Name="Guid with less than 32 digits" Rule="guidValue" FailAt="23">
+    <Input>01234567-89ab-cdef-456789abcdef</Input>
+  </TestCase>
+  <TestCase Name="Identifier" Rule="identifier">
+    <Input>TheQuickBrownFoxSays42</Input>
+  </TestCase>
+  <TestCase Name="Identifier with leading underscores" Rule="identifier">
+    <Input>__ID</Input>
+  </TestCase>
+  <TestCase Name="Identifier: no starting digit" Rule="identifier" FailAt="0">
+    <Input>0time</Input>
+  </TestCase>
+  <TestCase Name="Identifier: no dots within" Rule="identifier" FailAt="2">
+    <Input>No.Dot</Input>
+  </TestCase>
+  <TestCase Name="Singleton" Rule="relativeUrl">
+    <Input>MyStuff</Input>
+  </TestCase>
+  <TestCase Name="Function" Rule="relativeUrl">
+    <Input>Products(42)/Rating</Input>
+  </TestCase>
+  <TestCase Name="Function" Rule="relativeUrl">
+    <Input>Products/C++</Input>
+  </TestCase>
+
+</TestSuite>

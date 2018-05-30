@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Example Testcases - queryOptions
+
+  30 May 2018
+
+-->
+<TestSuite MaxUncoveredRules="20" xmlns="http://docs.oasis-open.org/odata/ns/testcases">
+  <DisableTrace Rule="identifier" />
+  <DisableTrace Rule="identifierLeadingCharacter" />
+  <DisableTrace Rule="identifierCharacter" />
+  <DisableTrace Rule="ALPHA" />
+  <DisableTrace Rule="DIGIT" />
+
+  <TestCase Name="Equals" Rule="boolCommonExpr">
+    <Input>Size eq 4.0</Input>
+  </TestCase>
+  <TestCase Name="Equals" Rule="boolCommonExpr">
+    <Input>Rating eq null</Input>
+  </TestCase>
+  <TestCase Name="Equals" Rule="boolCommonExpr">
+    <Input>Street eq 'Hugo'</Input>
+  </TestCase>
+  <TestCase Name="Equals" Rule="boolCommonExpr">
+    <Input>Address/Name eq 'O''Neill'</Input>
+  </TestCase>
+  <TestCase Name="Not Equals" Rule="boolCommonExpr">
+    <Input>Name ne 'c%2Fo'</Input>
+  </TestCase>
+  <TestCase Name="Greater Than" Rule="boolCommonExpr">
+    <Input>Price gt -INF</Input>
+  </TestCase>
+  <TestCase Name="Greater Than or Equal" Rule="boolCommonExpr">
+    <Input>Name ge 'Milk'</Input>
+  </TestCase>
+  <TestCase Name="Less Than" Rule="boolCommonExpr">
+    <Input>Name lt 'Milk'</Input>
+  </TestCase>
+  <TestCase Name="Less Than or Equal" Rule="boolCommonExpr">
+    <Input>Name le 'Milk'</Input>
+  </TestCase>
+  <TestCase Name="Logical And" Rule="boolCommonExpr">
+    <Input>true and false</Input>
+  </TestCase>
+  <TestCase Name="Logical Or" Rule="boolCommonExpr">
+    <Input>true or false</Input>
+  </TestCase>
+  <TestCase Name="Logical Negation" Rule="notExpr">
+    <Input>not false</Input>
+  </TestCase>
+  <TestCase Name="Logical Operator Examples" Rule="boolCommonExpr">
+    <Input>Name EQ 'Milk' AND Price LT 2.55</Input>
+  </TestCase>
+  <TestCase Name="Logical Operator Examples" Rule="boolCommonExpr">
+    <Input>Name Eq 'Milk' OR Price Lt 2.55</Input>
+  </TestCase>
+  <TestCase Name="Logical Operator Examples" Rule="boolCommonExpr">
+    <Input>not endswith(Name,'ilk')</Input>
+  </TestCase>
+  <TestCase Name="Logical Operator Examples" Rule="boolCommonExpr">
+    <Input>Name in ('Milk', 'Cheese')</Input>
+  </TestCase>
+  <TestCase Name="Addition" Rule="commonExpr">
+    <Input>Price add 2.45</Input>
+  </TestCase>
+  <TestCase Name="Addition" Rule="commonExpr">
+    <Input>(Price add 2.45) mod 2</Input>
+  </TestCase>
+  <TestCase Name="Subtraction" Rule="commonExpr">
+    <Input>Price sub 0.55</Input>
+  </TestCase>
+  <TestCase Name="Negate" Rule="commonExpr">
+    <Input>-Price</Input>
+  </TestCase>
+  <TestCase Name="Multiplication" Rule="commonExpr">
+    <Input>Price mul 2</Input>
+  </TestCase>
+  <TestCase Name="Division" Rule="commonExpr">
+    <Input>Price div 2</Input>
+  </TestCase>
+  <TestCase Name="Modulo" Rule="commonExpr">
+    <Input>Price mod 5</Input>
+  </TestCase>
+  <TestCase Name="Arithmetic Operator Examples" Rule="boolCommonExpr">
+    <Input>Price add 2.45 eq 5.00</Input>
+  </TestCase>
+  <TestCase Name="Arithmetic Operator Examples" Rule="boolCommonExpr">
+    <Input>Price sub 0.55 eq 2.00</Input>
+  </TestCase>
+  <TestCase Name="Arithmetic Operator Examples" Rule="boolCommonExpr">
+    <Input>Price mul 2.0 eq 5.10</Input>
+  </TestCase>
+  <TestCase Name="Arithmetic Operator Examples" Rule="boolCommonExpr">
+    <Input>Price div 2.55 eq 1</Input>
+  </TestCase>
+  <TestCase Name="Arithmetic Operator Examples" Rule="boolCommonExpr">
+    <Input>Rating mod 5 eq 0</Input>
+  </TestCase>
+  <TestCase Name="Parenthesis" Rule="commonExpr">
+    <Input>(true)</Input>
+  </TestCase>
+  <TestCase Name="Parenthesis" Rule="boolCommonExpr">
+    <Input>( true )</Input>
+  </TestCase>
+  <TestCase Name="Parenthesis" Rule="boolCommonExpr">
+    <Input>(Name eq 'Milk')</Input>
+  </TestCase>
+  <TestCase Name="Parenthesis" Rule="boolCommonExpr">
+    <Input>(false)</Input>
+  </TestCase>
+  <TestCase Name="Parenthesis" Rule="commonExpr">
+    <Input>(4 add 5) mod (4 sub 1)</Input>
+  </TestCase>
+  <TestCase Name="Parenthesis" Rule="boolcommonExpr">
+    <Input>(4 add 5) mod (4 sub 1) eq 0</Input>
+  </TestCase>
+  <TestCase Name="contains" Rule="boolCommonExpr">
+    <Input>contains(CompanyName,'lfreds')</Input>
+  </TestCase>
+  <TestCase Name="endswith" Rule="boolCommonExpr">
+    <Input>endswith(CompanyName,'Futterkiste')</Input>
+  </TestCase>
+  <TestCase Name="length" Rule="boolCommonExpr">
+    <Input>length(CompanyName) eq 19</Input>
+  </TestCase>
+  <TestCase Name="startswith" Rule="boolCommonExpr">
+    <Input>startswith(CompanyName,'Futterkiste')</Input>
+  </TestCase>
+  <TestCase Name="startswith" Rule="boolCommonExpr">
+    <Input>startswith(Supplier/Name,'Futterkiste')</Input>
+  </TestCase>
+  <TestCase Name="startswith" Rule="commonExpr">
+    <Input>indexOf(Supplier/Name,'Futterkiste')</Input>
+  </TestCase>
+  <TestCase Name="tolower" Rule="commonExpr">
+    <Input>tolower(CompanyName)</Input>
+  </TestCase>
+  <TestCase Name="toupper" Rule="commonExpr">
+    <Input>toupper(CompanyName)</Input>
+  </TestCase>
+  <TestCase Name="trim" Rule="commonExpr">
+    <Input>trim(CompanyName)</Input>
+  </TestCase>
+  <TestCase Name="expect - single property" Rule="expect">
+    <Input>expect=Items</Input>
+  </TestCase>
+  <TestCase Name="expect - multiple  properties" Rule="expect">
+    <Input>expect=Customer,Items</Input>
+  </TestCase>
+  <TestCase Name="expect - multiple navigation properties, nested" Rule="expect">
+    <Input>expect=Customer,Items(expect=Product)</Input>
+  </TestCase>
+  <TestCase Name="expect - recursive expansion" Rule="expect">
+    <Input>expect=Customer(levels=4)</Input>
+  </TestCase>
+  <TestCase Name="expect - multiple navigation properties, nested" Rule="expect">
+    <Input>expect=Customer,Items(expect=Product)</Input>
+  </TestCase>
+  <TestCase Name="expect - multiple nested options" Rule="expect">
+    <Input>expect=Items(expect=Quantity;expect=Product(expect=Name,Price))</Input>
+  </TestCase>
+  <TestCase Name="expect - levels" Rule="expect">
+    <Input>expect=Category(levels=max)</Input>
+  </TestCase>
+  <TestCase Name="expect - levels" Rule="expect">
+    <Input>expect=*(levels=max)</Input>
+  </TestCase>
+  <TestCase Name="expect - levels without leading zeroes" Rule="expect" FailAt="23">
+    <Input>expect=Category(levels=04)</Input>
+  </TestCase>
+  <TestCase Name="expect - nested expect" Rule="expect">
+    <Input>expect=Address(expect=Street,City,Location)</Input>
+  </TestCase>
+  <TestCase Name="expect - nested filter etc." Rule="expect">
+    <Input>expect=Addresses(filter=startswith(City,'H');top=5;skip=0;orderby=it;search=blue;expect=Country)</Input>
+  </TestCase>
+  <TestCase Name="OrderBy" Rule="orderby">
+    <Input>orderby=Name</Input>
+  </TestCase>
+  <TestCase Name="OrderBy - case-insensitive" Rule="orderby">
+    <Input>OrderBy=Name</Input>
+  </TestCase>
+  <TestCase Name="OrderBy asc" Rule="orderby">
+    <Input>orderby=Name&#09;asc</Input>
+  </TestCase>
+  <TestCase Name="OrderBy mixed" Rule="orderby">
+    <Input>orderby=Name asc,Rating,ReleaseDate desc</Input>
+  </TestCase>
+  <TestCase Name="Top and Skip" Rule="queryOptions">
+    <Input>top=5&amp;skip=10</Input>
+  </TestCase>
+  <TestCase Name="Search - simple term" Rule="queryOptions">
+    <Input>search=blue</Input>
+  </TestCase>
+  <TestCase Name="Search - simple term" Rule="queryOptions">
+    <Input>search=1984</Input>
+  </TestCase>
+  <TestCase Name="Search - simple term" Rule="queryOptions">
+    <Input>search=2x4</Input>
+  </TestCase>
+  <TestCase Name="Search - simple term" Rule="queryOptions">
+    <Input>search=3.14</Input>
+  </TestCase>
+  <TestCase Name="Search - simple term" Rule="queryOptions">
+    <Input>search=9,81</Input>
+  </TestCase>
+  <TestCase Name="Search - simple phrase" Rule="queryOptions">
+    <Input>search="blue%20green"</Input>
+  </TestCase>
+  <TestCase Name="Search - simple phrase" Rule="queryOptions">
+    <Input>search="blue%20green%22</Input>
+  </TestCase>
+  <TestCase Name="Search - phrase with escaped double-quote" Rule="queryOptions">
+    <Input>search="blue\"green"</Input>
+  </TestCase>
+  <TestCase Name="Search - phrase with escaped backslash" Rule="queryOptions">
+    <Input>search="blue\\green"</Input>
+  </TestCase>
+  <TestCase Name="Search - phrase with unescaped double-quote" Rule="queryOptions" FailAt="13">
+    <Input>search="blue"green"</Input>
+  </TestCase>
+  <TestCase Name="Search - phrase with unescaped double-quote" Rule="queryOptions" FailAt="15">
+    <Input>search="blue%22green"</Input>
+  </TestCase>
+  <TestCase Name="Search - implicit AND" Rule="queryOptions">
+    <Input>search=blue green</Input>
+  </TestCase>
+  <TestCase Name="Search - implicit AND, encoced" Rule="queryOptions">
+    <Input>search=blue%20green</Input>
+  </TestCase>
+  <TestCase Name="Search - AND" Rule="queryOptions">
+    <Input>search=blue AND green</Input>
+  </TestCase>
+  <TestCase Name="Search - OR" Rule="queryOptions">
+    <Input>search=blue OR green</Input>
+  </TestCase>
+  <TestCase Name="Search - NOT" Rule="queryOptions">
+    <Input>search=blue NOT green</Input>
+  </TestCase>
+  <TestCase Name="Search - only NOT" Rule="queryOptions">
+    <Input>search=NOT blue</Input>
+  </TestCase>
+  <TestCase Name="Search - multiple" Rule="queryOptions">
+    <Input>search=foo AND bar OR foo AND baz OR that AND bar OR that AND baz</Input>
+  </TestCase>
+  <TestCase Name="Search - multiple" Rule="queryOptions">
+    <Input>search=(foo OR that) AND (bar OR baz)</Input>
+  </TestCase>
+  <TestCase Name="Search - grouping" Rule="queryOptions">
+    <Input>search=foo AND (bar OR baz)</Input>
+  </TestCase>
+  <TestCase Name="Search - grouping" Rule="queryOptions">
+    <Input>search=(foo AND bar) OR baz</Input>
+  </TestCase>
+  <TestCase Name="Search - grouping" Rule="queryOptions">
+    <Input>search=(NOT foo) OR baz</Input>
+  </TestCase>
+  <TestCase Name="Search - grouping" Rule="queryOptions">
+    <Input>search=(NOT foo)</Input>
+  </TestCase>
+  <TestCase Name="Search - UTF-8 characters: Greek Capital Letter Delta (Δ)" Rule="queryOptions">
+    <Input>search=%CE%94</Input>
+  </TestCase>
+</TestSuite>

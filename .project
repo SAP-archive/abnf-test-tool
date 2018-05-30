@@ -11,7 +11,7 @@
 			<arguments>
 				<dictionary>
 					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/CompileABNF.launch</value>
+					<value>&lt;project&gt;/.externalToolBuilders/GenerateABNF.launch</value>
 				</dictionary>
 				<dictionary>
 					<key>incclean</key>
@@ -35,24 +35,19 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>abnf-extension-testcases.xml</name>
+			<name>abnf-testcases-2.xml</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-aggregation-testcases.xml</locationURI>
-		</link>
-		<link>
-			<name>abnf-extension.txt</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-aggregation-abnf.txt</locationURI>
+			<locationURI>PROJECT_LOC/examples/more-testcases.xml</locationURI>
 		</link>
 		<link>
 			<name>abnf-testcases.xml</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-abnf-testcases.xml</locationURI>
+			<locationURI>PROJECT_LOC/examples/example-testcases.xml</locationURI>
 		</link>
 		<link>
 			<name>abnf.txt</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/odata-abnf/abnf/odata-abnf-construction-rules.txt</locationURI>
+			<locationURI>PROJECT_LOC/examples/example-abnf.txt</locationURI>
 		</link>
 		<link>
 			<name>apg.jar</name>

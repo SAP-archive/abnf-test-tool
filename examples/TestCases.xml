@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuite MaxUncoveredRules="25" xmlns="http://docs.oasis-open.org/odata/ns/testcases">
+  <!-- Constraints tell the parser to check for a lexical match with a rule and in addition for an exact match with one of the provided (example) values -->
+  <Constraint Rule="entitySet">
+    <Match>Categories</Match>
+  </Constraint>
+
   <TestCase Name="Succeed" Rule="guidValue">
     <Input>01234567-89ab-cdef-0123-456789abcdef</Input>
   </TestCase>
   <TestCase Name="Succeed with FailAt" Rule="guidValue" FailAt="5">
     <Input>01234g67-89ab-cdef-0123-456789abcdef</Input>
   </TestCase>
-  <TestCase Name="Fail to Fail" Rule="odataUri" FailAt="4">
-    <Input>http://www.odata.org/</Input>
+  <TestCase Name="Fail to Fail" Rule="relativeUrl" FailAt="4">
+    <Input>Categories</Input>
   </TestCase>
   <TestCase Name="Fail without FailAt" Rule="guidValue">
     <Input>01234567-89ab-cdef-456789abcdef</Input>
@@ -18,16 +23,10 @@
   <TestCase Name="FailAt out of range" Rule="guidValue" FailAt="107">
     <Input>01234567-89ab-xdef-0123-456789abcdef</Input>
   </TestCase>
-  <!-- parser needs help for distinguishing between entityColNavigationProperty
-    and entityNavigationProperty, so it can pick the right branch and
-    reach keyPredicate -->
-  <Constraint Rule="entitySetName">
-    <Match>Categories</Match>
-  </Constraint>
-  <TestCase Name="Rule callback" Rule="odataRelativeUri">
+  <TestCase Name="Rule callback with match" Rule="relativeUrl">
     <Input>Categories(1)</Input>
   </TestCase>
-  <TestCase Name="Rule callback without match" Rule="odataRelativeUri">
+  <TestCase Name="Rule callback without match" Rule="relativeUrl">
     <Input>Products(1)</Input>
   </TestCase>
 </TestSuite>

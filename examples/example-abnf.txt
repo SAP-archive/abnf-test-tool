@@ -1,0 +1,272 @@
+;------------------------------------------------------------------------------
+; Example ABNF Rules
+;------------------------------------------------------------------------------
+; 30 May 2018
+;------------------------------------------------------------------------------
+;
+; Note: the first rule is the start rule. The ABNF generator will warn if not
+; all rules are eventually referenced by the start rule.
+; If the ABNF intentionally has more than one logical start rule, simply add
+; a dummy start rule that references all logical start rules
+;
+;------------------------------------------------------------------------------
+
+relativeUrl = resourcePath [ "?" queryOptions ]
+
+;------------------------------------------------------------------------------
+; Resource Path
+;------------------------------------------------------------------------------
+
+resourcePath = entitySet   [ collectionNavigation ] 
+             / singletonEntity [ singleNavigation ]
+
+collectionNavigation = keyPredicate [ singleNavigation ]
+
+keyPredicate     = simpleKey / compoundKey / keyPathSegments
+simpleKey        = OPEN ( keyPropertyValue ) CLOSE
+compoundKey      = OPEN keyValuePair *( COMMA keyValuePair ) CLOSE
+keyValuePair     = keyProperty EQ keyPropertyValue
+keyPropertyValue = primitiveLiteral
+keyPathSegments  = 1*( "/" keyPathLiteral )
+keyPathLiteral   = *pchar
+
+singleNavigation = [ "/" collectionProperty [ collectionNavigation ]
+                   / "/" singleProperty     [ singleNavigation ]
+                   ]
+
+
+;------------------------------------------------------------------------------
+; Query Options
+;------------------------------------------------------------------------------
+
+queryOptions = queryOption *( "&" queryOption )        
+queryOption  = expect 
+             / filter 
+             / orderby 
+             / search
+             / skip 
+             / top 
+
+expect            = "expect" EQ expectItem *( COMMA expectItem )
+expectItem        = STAR [ OPEN levels CLOSE ]
+                  / property [ OPEN expectOption *( SEMI expectOption ) CLOSE ]                    
+expectOption      = queryOption
+                  / levels
+                
+levels = "levels" EQ ( oneToNine *DIGIT / "max" )
+
+filter = "filter" EQ boolCommonExpr
+
+orderby     = "orderby" EQ orderbyItem *( COMMA orderbyItem )
+orderbyItem = property *( "/" property ) [ RWS ( "asc" / "desc" ) ]
+
+skip = "skip" EQ 1*DIGIT
+top  = "top"  EQ 1*DIGIT
+
+search     = "search" EQ BWS searchExpr
+searchExpr = ( OPEN BWS searchExpr BWS CLOSE
+             / searchTerm 
+             ) [ searchOrExpr
+               / searchAndExpr
+               ]
+
+searchOrExpr  = RWS 'OR'  RWS searchExpr
+searchAndExpr = RWS [ 'AND' RWS ] searchExpr
+
+searchTerm   = [ 'NOT' RWS ] ( searchPhrase / searchWord )
+searchPhrase = quotation-mark 1*qchar-no-AMP-DQUOTE quotation-mark
+searchWord   = 1*( ALPHA / DIGIT / COMMA / "." / pct-encoded )
+
+
+;------------------------------------------------------------------------------
+; Expressions
+;------------------------------------------------------------------------------
+
+boolCommonExpr = commonExpr ; resulting in a Boolean
+
+commonExpr = ( primitiveLiteral
+             / functionExpr
+             / negateExpr 
+             / parenExpr 
+             / listExpr
+             / notExpr
+             / propertyPathExpr
+             ) 
+             [ addExpr 
+             / subExpr 
+             / mulExpr 
+             / divExpr
+             / modExpr
+             ]  
+             [ eqExpr 
+             / neExpr 
+             / ltExpr  
+             / leExpr  
+             / gtExpr 
+             / geExpr 
+             / inExpr 
+             ]
+             [ andExpr 
+             / orExpr 
+             ] 
+
+propertyPathExpr = property *( "/" property )
+                   
+functionExpr = indexOf 
+             / toLower 
+             / toUpper  
+             / trim 
+             / length 
+             / boolFunctionExpr
+
+boolFunctionExpr = endsWith 
+                 / startsWith 
+                 / contains                                          
+
+contains   = "contains"   OPEN BWS commonExpr BWS COMMA BWS commonExpr BWS CLOSE
+endsWith   = "endswith"   OPEN BWS commonExpr BWS COMMA BWS commonExpr BWS CLOSE
+indexOf    = "indexof"    OPEN BWS commonExpr BWS COMMA BWS commonExpr BWS CLOSE
+length     = "length"     OPEN BWS commonExpr BWS CLOSE
+startsWith = "startswith" OPEN BWS commonExpr BWS COMMA BWS commonExpr BWS CLOSE
+toLower    = "tolower"    OPEN BWS commonExpr BWS CLOSE
+toUpper    = "toupper"    OPEN BWS commonExpr BWS CLOSE
+trim       = "trim"       OPEN BWS commonExpr BWS CLOSE
+
+parenExpr = OPEN BWS commonExpr BWS CLOSE
+listExpr  = OPEN BWS commonExpr BWS *( COMMA BWS commonExpr BWS ) CLOSE
+
+andExpr = RWS "and" RWS boolCommonExpr
+orExpr  = RWS "or"  RWS boolCommonExpr
+
+eqExpr = RWS "eq" RWS commonExpr     
+neExpr = RWS "ne" RWS commonExpr
+ltExpr = RWS "lt" RWS commonExpr
+leExpr = RWS "le" RWS commonExpr
+gtExpr = RWS "gt" RWS commonExpr
+geExpr = RWS "ge" RWS commonExpr
+inExpr = RWS "in" RWS commonExpr
+
+addExpr = RWS "add"   RWS commonExpr
+subExpr = RWS "sub"   RWS commonExpr
+mulExpr = RWS "mul"   RWS commonExpr
+divExpr = RWS "div"   RWS commonExpr
+modExpr = RWS "mod"   RWS commonExpr
+
+negateExpr = "-" BWS commonExpr
+
+notExpr = "not" RWS boolCommonExpr
+
+
+;------------------------------------------------------------------------------
+; Names and identifiers
+;------------------------------------------------------------------------------
+
+entitySet       = identifier
+singletonEntity = identifier          
+
+property = collectionProperty / singleProperty
+
+collectionProperty = identifier
+singleProperty     = identifier
+
+keyProperty = identifier
+
+identifier                  = identifierLeadingCharacter *127identifierCharacter
+identifierLeadingCharacter  = ALPHA / "_"         
+identifierCharacter         = ALPHA / "_" / DIGIT 
+
+
+;------------------------------------------------------------------------------
+; Literal Values
+;------------------------------------------------------------------------------
+
+primitiveLiteral = nullValue
+                 / booleanValue 
+                 / guidValue 
+                 / dateValue
+                 / numberValue 
+                 / stringValue
+         
+nullValue = "null" 
+
+booleanValue = "true" / "false"
+
+numberValue = [ SIGN ] 1*DIGIT [ "." 1*DIGIT ] [ "e" [ SIGN ] 1*DIGIT ] / nanInfinity
+nanInfinity = 'NaN' / '-INF' / 'INF'
+
+guidValue = 8HEXDIG "-" 4HEXDIG "-" 4HEXDIG "-" 4HEXDIG "-" 12HEXDIG 
+
+stringValue      = SQUOTE *( SQUOTE-in-string / pchar-no-SQUOTE ) SQUOTE
+SQUOTE-in-string = SQUOTE SQUOTE ; two consecutive single quotes represent one within a string literal
+
+dateValue = year "-" month "-" day
+year      = [ "-" ] ( "0" 3DIGIT / oneToNine 3*DIGIT )
+month     = "0" oneToNine
+          / "1" ( "0" / "1" / "2" )
+day       = "0" oneToNine
+          / ( "1" / "2" ) DIGIT
+          / "3" ( "0" / "1" )
+oneToNine = "1" / "2" / "3" / "4" / "5" / "6" / "7" / "8" / "9" 
+
+
+;------------------------------------------------------------------------------
+; Punctuation
+;------------------------------------------------------------------------------
+
+quotation-mark  = DQUOTE / "%22"
+escape = "\" / "%5C"     ; reverse solidus U+005C
+
+RWS = 1*( SP / HTAB / "%20" / "%09" )  ; "required" whitespace 
+BWS =  *( SP / HTAB / "%20" / "%09" )  ; "bad" whitespace 
+
+COMMA  = "," / "%2C"
+EQ     = "="
+SIGN   = "+" / "%2B" / "-"
+SEMI   = ";" / "%3B"
+STAR   = "*" / "%2A"
+SQUOTE = "'" / "%27"
+
+OPEN  = "(" / "%28"
+CLOSE = ")" / "%29"
+
+
+;------------------------------------------------------------------------------
+; A. URI syntax [RFC3986]
+;------------------------------------------------------------------------------
+
+pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
+pct-encoded   = "%" HEXDIG HEXDIG
+unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+;sub-delims   = "!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "="
+sub-delims    =             "&" / "'" / other-delims
+other-delims  = "!" / "$" /             "(" / ")" / "*" / "+" / "," / ";" / "="
+
+pchar-no-SQUOTE       = unreserved / pct-encoded-no-SQUOTE / other-delims / "&" / ":" / "@"
+pct-encoded-no-SQUOTE = "%" ( "0" / "1" /   "3" / "4" / "5" / "6" / "8" / "9" / A-to-F ) HEXDIG 
+                      / "%" "2" ( "0" / "1" / "2" / "3" / "4" / "5" / "6" /   "8" / "9" / A-to-F )
+
+qchar-no-AMP-DQUOTE   = qchar-unescaped 
+                      / escape ( escape / quotation-mark )               
+qchar-unescaped       = unreserved / pct-encoded-unescaped / other-delims / ":" / "@" / "/" / "?" / "'"
+pct-encoded-unescaped = "%" ( "0" / "1" /   "3" / "4" /   "6" / "7" / "8" / "9" / A-to-F ) HEXDIG 
+                      / "%" "2" ( "0" / "1" /   "3" / "4" / "5" / "6" / "7" / "8" / "9" / A-to-F ) 
+                      / "%" "5" ( DIGIT / "A" / "B" /   "D" / "E" / "F" )
+
+                 
+                      
+;------------------------------------------------------------------------------
+; C. ABNF core definitions [RFC5234]
+;------------------------------------------------------------------------------
+
+ALPHA  = %x41-5A / %x61-7A 
+DIGIT  = %x30-39 
+HEXDIG = DIGIT / A-to-F
+A-to-F = "A" / "B" / "C" / "D" / "E" / "F" 
+DQUOTE = %x22
+SP     = %x20 
+HTAB   = %x09 
+
+
+;------------------------------------------------------------------------------
+; End of Example ABNF Rules
+;------------------------------------------------------------------------------

@@ -16,24 +16,16 @@ After pointing
 - `abnf-testcases.xml` to your testcases, and 
 - `apg.jar` to your copy of Java APG 1.0 [https://github.com/ldthomas/apg-java](https://github.com/ldthomas/apg-java), 
 
-you are ready to go.
+you are ready to go. 
 
-The project uses a custom build step `CompileABNF` to generate the java class
+(Actually you only need to connect `apg.jar` to experiment with the example ABNF and testcases provided with this project.)
+
+The project uses a custom build step `GenerateABNF` to generate the java class
 `src/grammar/GrammarUnderTest.java` from the linked file `abnf.txt` using Java APG. 
 
-The included run configuration `Check` executes all testcases in the linked file `abnf-testcases.xml`.
+The run configuration `Check` executes all testcases in the linked file `abnf-testcases.xml`.
 
 That's all you need for the straight-forward case.
-
-## Multiple Testcase Files
-
-If you want to split your testcases into two files, point the linked file
-
-- `abnf-extension-testcases.xml`
-
-to your second testcase file and use the run configuration `Check2`. The rule coverage will be calculated using both testcase files. 
-
-If you want to split your testcases further, it should be easy to extrapolate from here.
 
 
 ## Testcase File Structure
@@ -53,7 +45,7 @@ in the bottom-most group "Launch Operation" the first radio button
 "Always launch the previously launched application" is selected. 
 This allows you to use `F11` in the XML editor to re-run all testcases.
  
-Each testcase has a `Name`, a start `Rule` for the parser, and an `Input` string to 
+Each `TestCase` has a `Name`, a start `Rule` for the parser, and an `Input` string to 
 parse. Negative testcases also have to specify the position at which the parser is expected to `FailAt`:
 
 ```xml
@@ -71,30 +63,61 @@ parse. Negative testcases also have to specify the position at which the parser 
 </TestSuite>
 ```
 
-Testcases without a `FailAt` attribute succeed if the complete input is successfully parsed. 
+Testcases without `FailAt` succeed if the complete input is successfully parsed. 
 
-Testcases with a `FailAt` attribute succeed if the parser fails at the specified position. 
+Testcases with `FailAt` succeed if the parser fails at the specified position. 
 
-Testcases fail otherwise. In that case a parser trace is included in the console output.
+Testcases fail otherwise. In that case a parser trace is included in the console output. "Trivial" rules can be omitted from the parser trace:
+
+```xml
+<TestSuite xmlns="http://docs.oasis-open.org/odata/ns/testcases">
+    <DisableTrace Rule="identifier" />
+    <DisableTrace Rule="identifierLeadingCharacter" />
+    <DisableTrace Rule="identifierCharacter" />
+    <DisableTrace Rule="ALPHA" />
+    <DisableTrace Rule="DIGIT" />
+```
+
 
 In addition to testcases the XML file may contain any number of constraints:
 
 ```xml
 <TestSuite xmlns="http://docs.oasis-open.org/odata/ns/testcases">
-    ...
-    <Constraint Rule="entityNavigationProperty">
+    <Constraint Rule="singularName">
         <Match>Category</Match>
         <Match>Product</Match>
         <Match>Supplier</Match>
     </Constraint>
-    <Constraint Rule="entityColNavigationProperty">
+    <Constraint Rule="pluralName">
         <Match>Items</Match>
         <Match>Products</Match>
     </Constraint>
-    ...
-</TestSuite>
 ```
    
-This helps the parser to disambiguate between rules that accept the same character sequences, in this example between navigation properties with multiplicity 1 and *.
+This helps the parser to disambiguate between rules that accept the same set of character sequences. If the parser successfully matches an `entityNavigationProperty`, it will trigger a callback that will check whether the matched character sequence is identical to one of the given `<Match>`es. If not, the parser will continue with the next alternative.
 
-If the parser successfully matches an `entityNavigationProperty`, it will trigger a callback that will check whether the matched character sequence is identical to one of the given `<Match>`es. If not, the parser will continue with the next alternative.
+
+## Multiple Testcase Files
+
+If you want to split your testcases into two files, point the linked file
+
+- `abnf-testcases-2.xml`
+
+to your second testcase file and use the run configuration `Check2`. The rule coverage will be calculated using both testcase files. 
+
+If you want to split your testcases further, it should be easy to extrapolate from here.
+
+
+
+## Multiple ABNF Files
+
+If you want to split your grammar into multiple files, you have to first add the files to your project, then adapt the build step `GenerateABNF` via
+- Project > Properties > Builders
+
+Select `GenerateABNF`, press "Edit...", then
+ - on the "Main" tab in the "Arguments" text field: add `/in=...` parameters for the additional grammar files
+ - on the "Build Options" tab select press the "Specify Resources..." button, then check the additional ABNF files to trigger the build step if one of the files is saved with changes. 
+ 
+ 
+
+

@@ -83,7 +83,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: Fail to Fail succeeds instead of failing at 4: http://www.odata.org/ is odataUri\n",
+				"ERROR: Fail to Fail succeeds instead of failing at 4: Categories is relativeUrl\n",
 				errLine(-2));
 	}
 
@@ -109,7 +109,7 @@ public class CheckTest {
 
 	@Test
 	public void testRuleCallback() throws Exception {
-		c.run(ts.clone("Rule callback"), out, err);
+		c.run(ts.clone("Rule callback with match"), out, err);
 		assertEquals("err", "", errArray.toString());
 		assertEquals(
 				"out",
@@ -123,7 +123,7 @@ public class CheckTest {
 		assertEquals("out", "", outArray.toString());
 		assertEquals(
 				"err",
-				"ERROR: Rule callback without match fails at 8: Products[(1)] is no odataRelativeUri\n",
+				"ERROR: Rule callback without match fails at 8: Products[(1)] is no relativeUrl\n",
 				errLine(-2));
 	}
 
