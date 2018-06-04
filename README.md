@@ -20,7 +20,7 @@ you are ready to go.
 
 (Actually you only need to connect `apg.jar` to experiment with the example ABNF and testcases provided with this project.)
 
-The project uses a custom build step `GenerateABNF` to generate the java class
+The project uses a custom build step `Generate ABNF Parser` to generate the java class
 `src/grammar/GrammarUnderTest.java` from the linked file `abnf.txt` using Java APG. 
 
 The run configuration `Check` executes all testcases in the linked file `abnf-testcases.xml`.
@@ -111,13 +111,9 @@ If you want to split your testcases further, it should be easy to extrapolate fr
 
 ## Multiple ABNF Files
 
-If you want to split your grammar into multiple files, you have to first add the files to your project, then adapt the build step `GenerateABNF` via
+If you want to split your grammar into multiple files, you have to first add the files to your project, then adapt the build step `Generate ABNF Parser` via
 - Project > Properties > Builders
 
-Select `GenerateABNF`, press "Edit...", then
+Select `Generate ABNF Parser`, press "Edit...", then
  - on the "Main" tab in the "Arguments" text field: add `/in=...` parameters for the additional grammar files
  - on the "Build Options" tab select press the "Specify Resources..." button, then check the additional ABNF files to trigger the build step if one of the files is saved with changes. 
- 
- 
-
-
