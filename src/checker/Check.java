@@ -265,7 +265,8 @@ public class Check {
 		try {
 			s.displayStats(statOut, "rules");
 			String statString = os.toString("UTF8");
-			String stats[] = statString.split(System
+			int start=statString.indexOf("no hits\n") + 8;
+			String stats[] = statString.substring(start).split(System
 					.getProperty("line.separator"));
 			for (int i = 1; i < stats.length; i++) {
 				String[] words = stats[i].split("\\s+");
