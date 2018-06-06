@@ -39,7 +39,7 @@ as
 - Key:      `http://docs.oasis-open.org/odata/ns/testcases`
  
 While you're at it, also make sure that in
-- Window -> Preferences -> Run/Debug -> Launching
+- Window > Preferences > Run/Debug > Launching
 
 in the bottom-most group "Launch Operation" the first radio button 
 "Always launch the previously launched application" is selected. 
