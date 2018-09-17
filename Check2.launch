@@ -10,6 +10,6 @@
 <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="checker.Check"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="${resource_loc:/CheckABNF/abnf-testcases.xml} ${resource_loc:/CheckABNF/abnf-testcases-2.xml}"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="&quot;${resource_loc:/CheckABNF/abnf-testcases.xml}&quot; &quot;${resource_loc:/CheckABNF/abnf-testcases-2.xml}&quot;"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="CheckABNF"/>
 </launchConfiguration>
