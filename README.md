@@ -117,3 +117,5 @@ If you want to split your grammar into multiple files, you have to first add the
 Select `Generate ABNF Parser`, press "Edit...", then
  - on the "Main" tab in the "Arguments" text field: add `/in=...` parameters for the additional grammar files
  - on the "Build Options" tab select press the "Specify Resources..." button, then check the additional ABNF files to trigger the build step if one of the files is saved with changes. 
+
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/abnf-test-tool)](https://api.reuse.software/info/github.com/SAP/abnf-test-tool)
