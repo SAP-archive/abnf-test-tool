@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: SAP/abnf-test-tool
+Upstream-Contact: Ralf Handl <ralf.handl@example.com>
+Source: https://github.com/SAP/abnf-test-tool
+
+Files: * build/* examples/* src/* test/*
+Copyright:  2013-2021 SAP SE or an SAP affiliate company and SAP/abnf-test-tools contributors
+License: Apache-2.0
