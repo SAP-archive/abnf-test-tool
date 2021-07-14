@@ -1,6 +1,12 @@
 # ABNF Test Tool #
 
-This project is an Eclipse project that you can import into your workspace via 
+## Requirements
+
+This project is an Eclipse project.
+
+## Download and Installation
+
+Clone this repository, then import the Eclipse project into your workspace via 
 - File > Import > Existing Projects into Workspace
 
 The project contains three linked files:
@@ -26,7 +32,6 @@ The project uses a custom build step `Generate ABNF Parser` to generate the java
 The run configuration `Check` executes all testcases in the linked file `abnf-testcases.xml`.
 
 That's all you need for the straight-forward case.
-
 
 ## Testcase File Structure
 
@@ -96,7 +101,6 @@ In addition to testcases the XML file may contain any number of constraints:
    
 This helps the parser to disambiguate between rules that accept the same set of character sequences. If the parser successfully matches an `entityNavigationProperty`, it will trigger a callback that will check whether the matched character sequence is identical to one of the given `<Match>`es. If not, the parser will continue with the next alternative.
 
-
 ## Multiple Testcase Files
 
 If you want to split your testcases into two files, point the linked file
@@ -107,8 +111,6 @@ to your second testcase file and use the run configuration `Check2`. The rule co
 
 If you want to split your testcases further, it should be easy to extrapolate from here.
 
-
-
 ## Multiple ABNF Files
 
 If you want to split your grammar into multiple files, you have to first add the files to your project, then adapt the build step `Generate ABNF Parser` via
@@ -116,6 +118,22 @@ If you want to split your grammar into multiple files, you have to first add the
 
 Select `Generate ABNF Parser`, press "Edit...", then
  - on the "Main" tab in the "Arguments" text field: add `/in=...` parameters for the additional grammar files
- - on the "Build Options" tab select press the "Specify Resources..." button, then check the additional ABNF files to trigger the build step if one of the files is saved with changes. 
+ - on the "Build Options" tab select press the "Specify Resources..." button, then check the additional ABNF files to trigger the build step if one of the files is saved with changes.
+
+## Known Issues
+
+No known issues.
+
+## How to obtain support
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Licensing
+
+Please see our [LICENSE](./LICENSE) for copyright and license information. Detailed information including third-party components and their licensing/copyright information is available via the [REUSE tool](link to https://api.reuse.software/info/github.com/SAP/odata-vocabularies).
 
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/abnf-test-tool)](https://api.reuse.software/info/github.com/SAP/abnf-test-tool)
