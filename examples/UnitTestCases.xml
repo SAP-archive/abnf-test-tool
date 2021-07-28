@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestSuite MaxUncoveredRules="25" xmlns="http://docs.oasis-open.org/odata/ns/testcases">
-  <!-- Constraints tell the parser to check for a lexical match with a rule and in addition for an exact match with one of the provided (example) values -->
+  <!-- Constraints tell the parser to check for a lexical match with a rule and in addition for an exact match with one of the provided (example) 
+    values -->
   <Constraint Rule="entitySet">
     <Match>Categories</Match>
   </Constraint>
@@ -28,5 +29,8 @@
   </TestCase>
   <TestCase Name="Rule callback without match" Rule="relativeUrl">
     <Input>Products(1)</Input>
+  </TestCase>
+  <TestCase Name="Rule with empty input" Rule="relativeUrl" FailAt="0">
+    <Input/>
   </TestCase>
 </TestSuite>
