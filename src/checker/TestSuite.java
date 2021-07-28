@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class TestSuite {
@@ -120,9 +121,11 @@ public class TestSuite {
 				else
 					tc.failAt = NOWHERE;
 
-				Element input = (Element) tcEl.getElementsByTagName("Input")
-						.item(0);
-				tc.input = input.getFirstChild().getNodeValue();
+				Node input = tcEl.getElementsByTagName("Input").item(0).getFirstChild();
+				if (input == null)
+					tc.input = "";
+				else
+					tc.input = input.getNodeValue();
 
 				ts.testCases.add(tc);
 			}
@@ -156,7 +159,7 @@ public class TestSuite {
 		}
 		return ts;
 	}
-	
+
 	public TestSuite clone(String name) {
 		TestSuite ts = new TestSuite();
 		ts.constraints = this.constraints;
